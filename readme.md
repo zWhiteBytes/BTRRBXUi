@@ -1,16 +1,23 @@
 # BTRRBXHud (probably windows-only)
 
-this is a pure, simple, python script to replace all of the topbar ui 
-assets with images in the assets/ folder, being the standard option
-to simply make transparent most of the useful ones.
+this is a pure and simple, python script to replace all of the roblox topbar ui 
+assets with the files in the assets/ folder, being the standard option
+to make all important ones transparent.
 
-# how do i use it?
+you can also replace the png files to customize them, and then
+just run the script!
 
-download the code, extract it and just run the python script.
-that should do the trick, also dont get scared if it runs and closes,
-unless no text pops up or whatever idk man
+# Well, how do I run it?
 
-# well how do i open the menu now?
+have python, download the code, extract the zip and just run the python script.
+that should do the trick. if it runs and closes, thats how fast it is.
+unless an error appears...
 
-1. click the invisible button
-2. press 'esc'
+# But how do I open the menu now?
+
+you have two choices:
+
+1. click the now-invisible button
+2. simply press 'esc'
+
+those should work
