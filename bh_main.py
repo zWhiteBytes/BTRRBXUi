@@ -31,7 +31,7 @@ for file_name in os.listdir(masset_pth):
 
     try:
         os.remove(destination)
-        print('[STATUS] Removed OG:', file_name)
+        print('[STATUS] Removed original file:', file_name)
     except:
         pass
 
