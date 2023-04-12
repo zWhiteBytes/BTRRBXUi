@@ -7,4 +7,10 @@ to simply make transparent most of the useful ones.
 # how do i use it?
 
 download the code, extract it and just run the python script.
-that should do the trick
+that should do the trick, also dont get scared if it runs and closes,
+unless no text pops up or whatever idk man
+
+# well how do i open the menu now?
+
+1. click the invisible button
+2. press 'esc'
