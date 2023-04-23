@@ -7,7 +7,7 @@ HOWEVER, the asset change is NOT permanent. you will have to re-run it each time
 
 # Well, how do I run it?
 
-have python, download the code, unzip it and just run the python script.
+have python (at least 3.6 and up), download the code, unzip it and just run the python script.
 
 # But how do I open the menu now? (invisible-preset)
 
