@@ -8,7 +8,7 @@ import zipfile
 
 os.system('color 02')
 
-# get appdata, make a list of presets, and get betterhud main and presets folder
+# get appdata, make a list of presets, and get betterbar main and presets folder
 
 appdata = os.getenv('LOCALAPPDATA')
 main_pth = os.path.dirname(__file__)
