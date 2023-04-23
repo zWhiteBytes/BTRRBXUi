@@ -1,6 +1,8 @@
-# BTRRBXHud (windows-only)
+![BTRRBXBar](https://user-images.githubusercontent.com/43272916/233817448-735a19a2-983d-4cdd-8203-550143b6c7d5.png)
 
-this is a python script to replace roblox topbar assets,
+# BTRRBXBar (windows-only)
+
+btrrbxbar is a python script to replace roblox topbar assets,
 nothing else really.
 
 # Well, how do I run it?
