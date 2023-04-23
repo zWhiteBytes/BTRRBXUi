@@ -2,12 +2,12 @@
 
 # BTRRBXBar (formerly BTRRBXHud) (windows-only)
 
-btrrbxbar is a python script to replace roblox topbar assets,
-nothing else really.
+btrrbxbar is a python script to replace roblox topbar assets
+HOWEVER, the asset change is NOT permanent. you will have to re-run it each time roblox updates.
 
 # Well, how do I run it?
 
-have python, download the code, extract the zip and just run the python script.
+have python, download the code, unzip it and just run the python script.
 
 # But how do I open the menu now? (invisible-preset)
 
@@ -23,3 +23,7 @@ as long as you edit it and dont mess with the resolution, you're good to go.
 
 me personally i'd use paint.net, but you can use whatever
 also an reminder, you have to edit size variants (if @2x or @3x exists for that file)
+
+# why the hell do you update this 500 times?
+
+i have no idea.
