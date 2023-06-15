@@ -1,97 +1,133 @@
-# import important stuff
-
 import os
+import sys
 import shutil
 import zipfile
 
-# oo that looks nice (applies color to cmd)
+# Clear the console screen based on the platform
+def clr():
+    if sys.platform.startswith('win32'):
+        os.system('cls')
+    elif sys.platform.startswith('linux'):
+        os.system('clear')
 
-os.system('color 02')
+# Get program files, get the preset directory and make an empty preset list,
+# and get BTRRBXBar main and presets folder.
+# Also verify OS.
 
-# get appdata, make a list of presets, and get betterbar main and presets folder
+if sys.platform.startswith("win32"):
+    program_files = os.getenv("ProgramFiles(x86)")
+elif sys.platform.startswith("linux"):
+    print("\033[93mThis was tested on Linux Mint.")
+    print("\033[93mYou also need to use Grapejuice.")
+    print("\033[93mMay work or may not work.")
+    yrn_input = input("\033[92mContinue? (Y/N): ")
 
-appdata = os.getenv('LOCALAPPDATA')
-main_pth = os.path.dirname(__file__)
-mpreset_pth = main_pth + "\presets"
-list_of_p = []
+    if yrn_input == 'Y':
+        print("Continuing...")
+    elif yrn_input == 'N':
+        print("Exiting...")
+        sys.exit()
 
-# roblox versions folder
+    program_files = os.path.join(os.getenv("HOME"), ".local", "share", "grapejuice", "prefixes", "player", "drive_c", "Program Files (x86)")
+elif sys.platform.startswith("darwin"):
+    print('\033[93mUntested and not supported on MacOS.')
+else:
+    print('\033[93mUntested and most likely not supported on your OS.')
 
-rversions_folder = f"{appdata}\Roblox\Versions\\"
+main_path = os.path.dirname(__file__)
+preset_path = os.path.join(main_path, "presets")
+preset_list = []
+ui_dir = ""
 
-# if roblox versions folder exists,
-# search in the two folders to see which one has the 
-# roblox GAME client, and then get the assets folder from there.
+# Roblox versions folder.
 
-if os.path.exists(rversions_folder):
-    for root, dirs, files in os.walk(rversions_folder):
+versions_folder = os.path.join(program_files, "Roblox", "Versions")
+
+# If Roblox versions folder exists,
+# find the Roblox player .exe.
+# Thus we'll know the folder it is in.
+
+if os.path.exists(versions_folder):
+    for root, dirs, files in os.walk(versions_folder):
         if "RobloxPlayerBeta.exe" in files:
             folder_dir = os.path.abspath(root)
-            topbar_dir = fr"{folder_dir}\content\textures\ui\TopBar\\"
+            ui_dir = os.path.join(folder_dir, "content", "textures", "ui")
 
-            print(f"[ROBLOX] Current installation folder: {folder_dir}")
-            print(f"[ROBLOX] Current TopBar assets folder: {topbar_dir}")
+            print(f"\033[92m[ROBLOX] Current installation folder: {folder_dir}")
+            print(f"\033[92m[ROBLOX] Current TopBar assets folder: {ui_dir}")
             break
 else:
-    print("[ERROR] Roblox 'Versions' folder does not exist.")
-    print("[ERROR] This could be because of Roblox not being installed.")
-    input("[EXIT] Press enter to exit.\n")
+    print("\033[93m[ERROR] ROBLOX 'Versions' folder does not exist.")
+    print("\033[93m[ERROR] ROBLOX may not be installed.")
+    input("\033[93m[EXIT] Press enter to exit.\n")
     exit()
 
-# for each file in presets, if ends with zip
-# append to list of presets. if not zip, pass.
+# For each file in presets folder, if it ends with ".zip",
+# append it to the list of presets.
 
-for file_name in os.listdir(mpreset_pth):
+for file_name in os.listdir(preset_path):
     if file_name.endswith(".zip"):
+        preset_list.append(file_name)
+
+# Show the options.
+
+options = '\n'.join(f"{i+1}. {option}" for i, option in enumerate(preset_list))
+preset_files = input(f"\n\033[92m[PRESETS] Choose a preset:\n{options}\n\n")
+
+# Check if the option selected was valid,
+# if not say invalid
+# if yes then continue the process.
+
+if not preset_files.isdigit() or int(preset_files) < 1 or int(preset_files) > len(preset_list):
+    print("\033[93m[PRESETS] Invalid preset option.")
+else:
+    try:
+        # Get the selected preset zip file, create a temporary folder,
+        # extract the zip in there, copy everything in the folder to the
+        # UI folder and then delete the temporary folder.
+
+        clr()
+        selected_preset = preset_list[int(preset_files) - 1]
+        print(f"\033[92m[PRESETS] Preset selected: {selected_preset}.")
+
+        temp_path = os.path.join(main_path, "extractTemp")
         try:
-            list_of_p.append(file_name)
+            if os.path.exists(temp_path):
+                shutil.rmtree(temp_path)
+                print(f"\033[92m[STATUS] Removed existing folder: {temp_path}")
         except:
             pass
 
-# visually better for choosing,
-# also gives you the knowledge of what you're 
-# actually picking.
+        os.mkdir(temp_path)
 
-options_numbered = '\n'.join(f"{i+1}. {option}" for i, option in enumerate(list_of_p))
-zip_files = input(f"\n[PRESETS] Choose an preset:\n{options_numbered}\n\n")
+        with zipfile.ZipFile(os.path.join(preset_path, selected_preset), 'r') as zip_file:
+            zip_file.extractall(temp_path)
 
-# if answer is not a digit or zero, or longer than the list
-# throw an invalid error.
-# if answer is valid, create an folder to temporarily
-# store the images, copy to roblox assets and delete the folder.
-
-if not zip_files.isdigit() or int(zip_files) < 1 or int(zip_files) > len(list_of_p):
-    print("[PRESETS] Invalid preset option.")
-else:
-    try:
-        selected_preset = list_of_p[int(zip_files) - 1]
-        print(f"[PRESETS] Preset selected: {selected_preset}.")
-    
-        cache_pth = os.path.join(main_pth, "extractCache\\")
-        os.mkdir(cache_pth)
-
-        with zipfile.ZipFile(f'{mpreset_pth}\\{selected_preset}', 'r') as zip:
-            zip.extractall(f'{cache_pth}')
-
-        for file_name in os.listdir(cache_pth):
-            source = cache_pth + file_name
-            destination = topbar_dir + file_name
+        for item in os.listdir(temp_path):
+            source = os.path.join(temp_path, item)
+            destination = os.path.join(ui_dir, item)
 
             try:
-                os.remove(destination)
-                print('[STATUS] Removed original file:', file_name)
-            except:
-                pass
+                if os.path.isdir(destination):
+                    shutil.rmtree(destination)
+                    print('\033[92m[STATUS] Removed existing folder:', item)
+                elif os.path.isfile(destination):
+                    os.remove(destination)
+                    print('\033[92m[STATUS] Removed existing file:', item)
+            except Exception as error:
+                print(f"\033[93m[ERROR]: {error}")
 
-            if os.path.isfile(source):
-                shutil.copy(source, destination)
-                print('[STATUS] Copied file:', file_name)
+            if os.path.isdir(source):
+                shutil.copytree(source, destination)
+                print('\033[92m[STATUS] Copied folder:', item)
+            else:
+                shutil.copy2(source, destination)
+                print('\033[92m[STATUS] Copied file:', item)
 
-        shutil.rmtree(cache_pth)
-        os.system("color")
-        os.system("cls")
+        shutil.rmtree(temp_path)
 
-        input("[STATUS] All done! Press enter to exit.\n")
-        os.system("cls")
+        clr()
+        input("\033[92m[STATUS] All done! Press enter to exit.\n")
+        clr()
     except Exception as error:
-        print(f"[ERROR]: {error}")
+        print(f"\033[93m[ERROR]: {error}")
