@@ -16,6 +16,7 @@ def clr():
 
 if sys.platform.startswith("win32"):
     program_files = os.getenv("ProgramFiles(x86)")
+    app_data = os.getenv("LOCALAPPDATA")
 elif sys.platform.startswith("linux"):
     print("\033[93mThis was tested on Linux Mint.")
     print("\033[93mYou also need to use Grapejuice.")
@@ -41,14 +42,24 @@ ui_dir = ""
 
 # Roblox versions folder.
 
-versions_folder = os.path.join(program_files, "Roblox", "Versions")
+versions_folder_p = os.path.join(program_files, "Roblox", "Versions")
+versions_folder_a = os.path.join(app_data, "Roblox", "Versions")
 
 # If Roblox versions folder exists,
 # find the Roblox player .exe.
 # Thus we'll know the folder it is in.
 
-if os.path.exists(versions_folder):
-    for root, dirs, files in os.walk(versions_folder):
+if os.path.exists(versions_folder_p):
+    for root, dirs, files in os.walk(versions_folder_p):
+        if "RobloxPlayerBeta.exe" in files:
+            folder_dir = os.path.abspath(root)
+            ui_dir = os.path.join(folder_dir, "content", "textures", "ui")
+
+            print(f"\033[92m[ROBLOX] Current installation folder: {folder_dir}")
+            print(f"\033[92m[ROBLOX] Current TopBar assets folder: {ui_dir}")
+            break
+elif os.path.exists(versions_folder_a):
+    for root, dirs, files in os.walk(versions_folder_a):
         if "RobloxPlayerBeta.exe" in files:
             folder_dir = os.path.abspath(root)
             ui_dir = os.path.join(folder_dir, "content", "textures", "ui")
