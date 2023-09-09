@@ -24,7 +24,7 @@ all you need to do is get the "Original" preset, unzip it and you'll see the png
 as long as you edit it and dont mess with the resolution, you're good to go.
 
 me personally i'd use paint.net, but you can use whatever
-also an reminder, you have to edit size variants (if @2x or @3x exists for that file)
+also an reminder, you do not have to edit size variants (i think)
 
 # why did you already rename this 3 times
 
