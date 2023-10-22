@@ -1,7 +1,7 @@
 ![BTRRBXUi](https://github.com/zWhiteBytes/BTRRBXBar/assets/43272916/7ae79998-1e8a-400c-b772-6fdf1afd0b37)
 
-* USE PIZZABOXER'S https://github.com/pizzaboxer/bloxstrap INSTEAD, IT HAS PERSISTENT FILE MODS.
-* IF YOU STILL WANT TO USE THIS:
+# USE PIZZABOXER'S https://github.com/pizzaboxer/bloxstrap INSTEAD, IT HAS PERSISTENT FILE MODS.
+# IF YOU STILL WANT TO USE THIS:
 # BTRRBXUI (formerly BTRRBXBar/HUD) (windows & linux)
 
 btrrbxui is a python script to replace roblox ui assets
